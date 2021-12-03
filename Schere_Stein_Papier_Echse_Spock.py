@@ -1,21 +1,31 @@
 import random
 
+counter_player = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+counter_comp = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+
+
 computer = 0
 spieler = 0
+so_oft_wurde_gespielt = 0
 
 auswahl_liste = {1: "Schere", 2: "Papier", 3: "Stein", 4: "Echse", 5: "Spock"}
 win = ("----DU HAST GEWONNEN!----")
 loose = ("----DU HAST VERLOREN!----")
 
+
 while True:
+    so_oft_wurde_gespielt += 1
+
     print("1 - Schere   2 - Papier   3 - Stein   4 - Echse   5 - Spock \n")
 
     d = int(input("Deine Wahl(1-5): "))
     print("-> ", auswahl_liste[d])
+    counter_player[d] = counter_player.get(d) + 1
     #print("Deine Punkte: " + str(spieler), "\n")
 
     print("Computer Wahl(1-5): ")
     e = random.randrange(1, 6)
+    counter_comp[d] = counter_comp.get(d) + 1
     print("-> ", auswahl_liste[e])
     #print("Computer Punkte: ", str(computer), "\n")
 
@@ -66,13 +76,17 @@ while True:
     if nochmal == "n":
         break
 
-# Daten in eine .txt Datei einlesen
+# Daten in eine .txt Datei einlesen / Ausgabe
 file = open("Textdatei.txt", "w")
 
-file.write("Ergbenisse vom Spieler: " + str(spieler))
+file.write("Punktestand Spieler: " + str(spieler))
 file.write("\n")
-file.write("Ergebnisse vom Computer: " + str(computer))
+file.write("Punktestand Computer: " + str(computer))
 file.write("\n")
-file.write("So oft wurde gespielt: ")
+file.write("So oft wurde gespielt: " + str(so_oft_wurde_gespielt))
+file.write("\n")
+file.write("Auswahl Spieler: " + str(counter_player))
+file.write("\n")
+file.write("Auswahl Computer: " + str(counter_comp))
 
 file.close()
