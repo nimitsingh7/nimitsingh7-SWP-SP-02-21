@@ -41,4 +41,9 @@ class Abteilungen:
         return self.name
 
 class Company:
-    Abteilung = []
+    def __init__(self, cname):
+        self.cname = cname
+        self.Abteilung = []
+
+    def __str__(self):
+        return  self.cname
