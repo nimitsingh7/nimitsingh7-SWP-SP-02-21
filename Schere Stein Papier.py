@@ -13,8 +13,8 @@ while spiel == 1:
               "")
         print("Deine Punkte: " + str(spieler_punkte))
         print("Computer Punkte: " + str(computer_punkte))
-        spieler_wahl = (int(input("Schere [1], Stein [2] oder Papier [3]")))
-        computer_wahl = random.randrange(1,4)
+        spieler_wahl = (int(input("Schere [1], Stein [2] oder Papier [3]: ")))
+        computer_wahl = random.randrange(1, 4)
         status = 1
     #Überprüfung
     if status == 1:
@@ -45,5 +45,8 @@ while spiel == 1:
             elif computer_wahl == 2:
                 print("Gewonnen, Computer verliert mit Stein gegen Papier")
                 spieler_punkte = spieler_punkte + 1
-
         status = 0
+
+datei = open('Textdatei.txt', 'w')
+datei.write("weitere Zeile")
+datei.close()
