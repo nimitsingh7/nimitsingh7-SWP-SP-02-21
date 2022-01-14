@@ -1,9 +1,36 @@
 import random
+import json
+import requests
 
-counter_player = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+# counter_player = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
 counter_comp = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
 
 
+def sendRequest(username, voteScissors, voteRock, votePaper, voteSpock, voteLizard, apiIP = "http://127.0.0.1:5000"):
+    reqUrl = apiIP + "/v1/updateRecord"
+    reqUrl+= "?username=" + str(username) + "&voteScissors=" + str(voteScissors)
+    reqUrl+= "&voteRock=" + str(voteRock) + "&votePaper=" + str(votePaper)
+    reqUrl+= "&voteSpock=" + str(voteSpock) + "&voteLizard=" + str(voteLizard)
+    responseCode = 0
+    try:
+        response = requests.post(reqUrl, None)
+        responseCode = response.status_code
+    except:
+        return 0
+    return responseCode
+
+
+# Daten auslesen
+file = open(
+    "user_picks.txt", 'r')
+counter_player = {}
+for line in file:
+    (key, val) = line.strip().split(',')
+    counter_player[key] = val
+file.close()
+counter_player = {int(k): int(v) for k,v in counter_player.items()}
+
+# Counter
 computer = 0
 spieler = 0
 so_oft_wurde_gespielt = 0
@@ -76,6 +103,13 @@ while True:
     if nochmal == "n":
         break
 
+
+# Daten in neue txt file Speichern
+file = open("user_picks.txt", "w")
+for k, v in counter_player.items():
+    file.write(str(k) + "," + str(v) + "\n")
+file.close()
+
 # Daten in eine .txt Datei einlesen / Ausgabe
 file = open("Textdatei.txt", "w")
 
@@ -85,8 +119,12 @@ file.write("Punktestand Computer: " + str(computer))
 file.write("\n")
 file.write("So oft wurde gespielt: " + str(so_oft_wurde_gespielt))
 file.write("\n")
-file.write("Auswahl Spieler: " + str(counter_player))
+file.write("Auswahl Spieler: " + json.dumps(counter_player))
 file.write("\n")
-file.write("Auswahl Computer: " + str(counter_comp))
+file.write("Auswahl Computer: " + json.dumps(counter_comp))
 
 file.close()
+
+# API Aufruf
+sendRequest("dieLegende1337", counter_player.get(1), counter_player.get(2), counter_player.get(3),
+            counter_player.get(4), counter_player.get(5))
