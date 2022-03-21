@@ -1,8 +1,19 @@
+import time
+import random
+
+
 class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
         self.prev = None
+
+
+def swapData(first, second):
+    value = first.data
+    first.data = second.data
+    second.data = value
+
 
 class DoubleLinkedList:
     def __init__(self):
@@ -36,6 +47,10 @@ class DoubleLinkedList:
 
     def print(self):
         current = self.head
+
+        if self.head is None:
+            print("List is empty")
+
         while current:
             print(current.data)
             current = current.next
@@ -74,13 +89,12 @@ class DoubleLinkedList:
         current = self.head
         while current:
             if current.data == key and current == self.head:
-                # Fall 1
+
                 if not current.next:
                     current = None
                     self.head = None
                     return
 
-                # Fall 2
                 else:
                     nxt = current.next
                     current.next = None
@@ -90,7 +104,7 @@ class DoubleLinkedList:
                     return
 
             elif current.data == key:
-                # Fall 3
+
                 if current.next:
                     nxt = current.next
                     prev = current.prev
@@ -100,7 +114,6 @@ class DoubleLinkedList:
                     current = None
                     return
 
-                # Fall 4
                 else:
                     prev = current.prev
                     prev.next = None
@@ -109,18 +122,63 @@ class DoubleLinkedList:
                     return
             current = current.next
 
+    def insertionSort(self):
+        front = self.head
+        back = None
+        while (front != None):
+            back = front.next
+            while (back != None and back.prev != None and back.data < back.prev.data):
+                swapData(back, back.prev)
+                back = back.prev
 
-# Durchführung
+            front = front.next
 
-dl = DoubleLinkedList()
+    def searchNode(self, value):
+        i = 1
+        flag = False
+        current = self.head
 
-dl.add(1)
-dl.add(2)
-dl.add(3)
-dl.add(4)
+        if self.head is None:
+            print("List is empty")
+            return
 
-dl.add_before_node(1, 0)
-dl.add_after_node(4, 5)
-dl.delete(0)
+        while current != None:
+            if current.data == value:
+                flag = True
+                break
+            current = current.next
+            i = i + 1
 
-dl.print()
+        if flag:
+            print("Das gesuchte Element ist in dieser Position vorhanden: " + str(i))
+        else:
+            print("Das gesuchte Element ist nicht vorhanden")
+
+
+def main():
+    dl = DoubleLinkedList()
+
+    anzahl = int(input("Anzahl der Elemente die erzeugt werden sollen: "))
+    if anzahl > 0:
+        for i in range(0, anzahl):
+            i = random.randint(0, anzahl)
+            dl.add(i)
+        print("\n")
+
+    print("Without Insertion Sort: ")
+    dl.print()
+    print("\n")
+
+    start = time.time()
+    dl.insertionSort()
+    end = time.time()
+
+    print("\n")
+    print("With Insertion Sort: ")
+    dl.print()
+    print("\n")
+    print("Zeit für Insertion Sort: {:5.3f}s".format(end - start))
+
+
+if __name__ == "__main__":
+    main()
