@@ -23,7 +23,7 @@ class Mitarbeiter(Person):
     def __str__(self):
         return self.firstname + " " + self.lastname + " " + str(self.age) + " " + str(self.gender) + " " + self.position + " " + str(self.gehalt)
 
-class Gruppenleiter(Mitarbeiter):
+class Gruppenleiter:
     def __init__(self, firstname, lastname, age, gender):
         self.firstname = firstname
         self.lastname = lastname
