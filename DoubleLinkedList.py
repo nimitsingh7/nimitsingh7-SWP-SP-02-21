@@ -122,12 +122,23 @@ class DoubleLinkedList:
                     return
             current = current.next
 
-    def insertionSort(self):
+    def insertionSortAsc(self):
         front = self.head
         back = None
-        while (front != None):
+        while front is not None:
             back = front.next
-            while (back != None and back.prev != None and back.data < back.prev.data):
+            while back is not None and back.prev is not None and back.data < back.prev.data:
+                swapData(back, back.prev)
+                back = back.prev
+
+            front = front.next
+
+    def insertionSortDesc(self):
+        front = self.head
+        back = None
+        while front is not None:
+            back = front.next
+            while back is not None and back.prev is not None and back.data > back.prev.data:
                 swapData(back, back.prev)
                 back = back.prev
 
@@ -155,7 +166,7 @@ class DoubleLinkedList:
             print("Das gesuchte Element ist nicht vorhanden")
 
 
-def main():
+def Main():
     dl = DoubleLinkedList()
 
     anzahl = int(input("Anzahl der Elemente die erzeugt werden sollen: "))
@@ -170,15 +181,15 @@ def main():
     print("\n")
 
     start = time.time()
-    dl.insertionSort()
+    dl.insertionSortAsc()
     end = time.time()
 
     print("\n")
     print("With Insertion Sort: ")
     dl.print()
     print("\n")
-    print("Zeit für Insertion Sort: {:5.3f}s".format(end - start))
+    print("Zeit für Insertion Sort: {:5.5f}s".format(end - start))
 
 
 if __name__ == "__main__":
-    main()
+    Main()
