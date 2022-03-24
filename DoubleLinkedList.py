@@ -122,6 +122,16 @@ class DoubleLinkedList:
                     return
             current = current.next
 
+    def length(self):
+        if self.head is None:
+            print("DoublyLinkedList is Empty!")
+        else:
+            res = 0
+            while self.head is not None:
+                res = res + 1
+                self.head = self.head.next
+            return res
+
     def insertionSortAsc(self):
         front = self.head
         back = None
@@ -153,7 +163,7 @@ class DoubleLinkedList:
             print("List is empty")
             return
 
-        while current != None:
+        while current is not None:
             if current.data == value:
                 flag = True
                 break
@@ -171,11 +181,13 @@ def Main():
 
     anzahl = int(input("Anzahl der Elemente die erzeugt werden sollen: "))
     if anzahl > 0:
+        s = time.time()
         for i in range(0, anzahl):
             i = random.randint(0, anzahl)
             dl.add(i)
+        e = time.time()
         print("\n")
-
+    # dl.add(6) # search (6)
     print("Without Insertion Sort: ")
     dl.print()
     print("\n")
@@ -187,8 +199,15 @@ def Main():
     print("\n")
     print("With Insertion Sort: ")
     dl.print()
+
     print("\n")
     print("Zeit für Insertion Sort: {:5.5f}s".format(end - start))
+    print("Zeit für befüllen der List: {:5.3f}s".format(e - s))
+    print("-----------------------------------------------------")
+
+    print("\n")
+    # dl.searchNode(6)
+    print("Length of the List: " + str(dl.length()))
 
 
 if __name__ == "__main__":
