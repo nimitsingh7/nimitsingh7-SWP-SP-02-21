@@ -21,7 +21,8 @@ class ArrayList:
             self.list.insert(pos - 1, data)
 
     def delete(self, pos):
-        self.list.pop(pos)
+        listarr = self.list
+        listarr.pop(pos)
 
     def deleteAfter(self, pos):
         if len(self.list) > pos + 1:
@@ -34,11 +35,14 @@ class ArrayList:
     def length(self):
         return len(self.list)
 
-    def findByIndex(self, index):
+    def search(self, index):
         if self.list is None:
-            print("Liste ist leer")
+            print("List ist leer")
         else:
-            return self.list[index]
+            if index in self.list:
+                print("%s is found in the list" % index)
+            else:
+                print("%s is not found in the list" % index)
 
     def sortAsc(self):
         for i in range(1, len(self.list)):
@@ -64,11 +68,13 @@ def Main():
 
     anzahl = int(input("Anzahl der Elemente die erzeugt werden sollen: "))
     if anzahl > 0:
+        s = time.time()
         for i in range(0, anzahl):
             i = random.randint(0, anzahl)
             a1.addEnd(i)
+        e = time.time()
+        print("\n")
 
-    print("\n")
     print("List without Insertion Sort: ")
     print(a1.list)
     print("\n")
@@ -80,11 +86,26 @@ def Main():
     print(a1.list)
 
     print("\n")
-    # print("Length of the List: " a1.length() "!")
+    print("Zeit für Insertion Sort: {:5.5f}s".format(end - start))
+    print("Zeit für befüllen der List: {:5.5f}s".format((e - s) * 1000))
+
+    print("-----------------------------------------------------")
 
     print("\n")
-    print("Zeit für Insertion Sort: {:5.5f}s".format(end - start))
+    print("Length of the List: " + str(a1.length()))
+
+    print("\n")
+    # print(a1.search(6))
+
+    """
+    a1.delete(1)
+    print(a1.list)
+    """
 
 
 if __name__ == "__main__":
     Main()
+
+    # delete / search O(1)
+    # add / delete_before / delete_after O(n)
+    # sort O(n²)
