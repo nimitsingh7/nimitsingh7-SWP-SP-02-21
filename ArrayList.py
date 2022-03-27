@@ -87,7 +87,7 @@ def Main():
 
     print("\n")
     print("Zeit für Insertion Sort: {:5.5f}s".format(end - start))
-    print("Zeit für befüllen der List: {:5.5f}s".format((e - s) * 1000))
+    print("Zeit für befüllen der List: {:5.5f}s".format((e - s) * 1000))  # Time in milliseconds
 
     print("-----------------------------------------------------")
 
@@ -97,15 +97,6 @@ def Main():
     print("\n")
     # print(a1.search(6))
 
-    """
-    a1.delete(1)
-    print(a1.list)
-    """
-
 
 if __name__ == "__main__":
     Main()
-
-    # delete / search O(1)
-    # add / delete_before / delete_after O(n)
-    # sort O(n²)
